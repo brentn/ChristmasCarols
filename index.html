@@ -1,0 +1,33 @@
+<html>
+<head>
+  <style>body{background-color:#c50000;font-family:sans-serif}body.alt{background-color:#00A000}#song{color:black;background-color:#EEEEEE;border-radius:20px;min-height:100%}#song.night{color:#CCCCCC;background-color:black}</style>
+</head>
+<body>
+  <div id='menubar'></div>
+  <div id='song'>
+    <div id='title'></div>
+    <div id='lyrics'></div>
+    <div id='author'></div>
+  </div>
+  <script type="text/javascript">
+    songs=[{
+      title: "Angels We Have Heard on High",
+      lyrics: "<verse>Angels we have heard on high/nSweetly singing o’er the plains,\nAnd the mountains in reply\nEchoing their joyous strains.\n</verse><chorus>Gloria, in excelsis Deo!\nGloria, in excelsis Deo!</chorus>\nShepherds, why this jubilee?\nWhy your joyous strains prolong?\nWhat the gladsome tidings be\nWhich inspire your heav’nly song?</verse><verse>Come to Bethlehem and see\nHim Whose birth the angels sing;/nCome, adore on bended knee,/nChrist the Lord, the newborn King.</verse><verse>See Him in a manger laid,\nWhom the choirs of angels praise;\nMary, Joseph, lend your aid,\nWhile our hearts in love we raise.</verse>",
+      author: "unknown"
+    },
+    {
+      title:"",
+      lyrics:"",
+      author:""
+    }];
+    function load(id) {
+      var song = songs[id];
+      document.getElementById('title').text(song.title);
+      document.getElementById('lyrics').text(song.lyrics);
+      document.getElementById('author').text(song.author);
+    }
+
+    if (Math.random() < 0.5) { document.body.className+="alt"; }
+  </script>
+</body>
+</html>
