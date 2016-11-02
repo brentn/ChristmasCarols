@@ -22,9 +22,8 @@
     }];
     function load(id) {
       var song = songs[id];
-      console.log('id',id)
       document.getElementById('title').innerHTML = song.title;
-      document.getElementById('lyrics').innerHTML = song.lyrics;
+      document.getElementById('lyrics').innerHTML = '<p>'+song.lyrics.replace('\n', '</p><p>')+'</p>';
       document.getElementById('author').innerHTML = song.author;
     }
 
