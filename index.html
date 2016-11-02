@@ -23,7 +23,7 @@
     function load(id) {
       var song = songs[id];
       document.getElementById('title').innerHTML = song.title;
-      document.getElementById('lyrics').innerHTML = '<p>'+song.lyrics.replace('\n', '</p><p>')+'</p>';
+      document.getElementById('lyrics').innerHTML = '<p>'+song.lyrics.split('\n').join('</p><p>')+'</p>';
       document.getElementById('author').innerHTML = song.author;
     }
 
