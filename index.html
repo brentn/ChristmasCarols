@@ -1,18 +1,72 @@
 <html>
 <head>
-  <style>body{background-color:#c50000;font-family:sans-serif}body.alt{background-color:#00A000}#song{color:black;background-color:#EEEEEE;border-radius:20px;min-height:100%}#song.night{color:#CCCCCC;background-color:black}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>body{background-color:#c50000;font-family:sans-serif}body.alt{background-color:#00A000}#song{color:black;background-color:#EEEEEE;border-radius:20px;margin-top:-20px;min-height:100%;padding:20px;-webkit-box-shadow:4px 4px 8px;-moz-box-shadow:0 1px 4px rgba(0,0,0,.3); box-shadow:4px 8px 8px rgba(0,0,0,.3)}#song.night{color:#CCCCCC;background-color:black}#song #title{font-size:largest;text-align:center}#song #lyrics{display:table;margin-left:auto;margin-right:auto}#song #author{font-weight:100;color:grey;text-align:right;font-style:italic;padding-right:30px}#song chorus{font-style:italic}p{font-size:1em}.hint{color:grey;font-style:italic;margin-left:-20px;}
+    .hamburger {
+      position: relative;
+      display: inline-block;
+      width: 1.25em;
+      height: 0.8em;
+      margin-right: 0.3em;
+      border-top: 0.2em solid rgba(0,0,0,0.5);
+      border-bottom: 0.2em solid rgba(0,0,0,0.5);
+  }
+  .hamburger:before {
+      content: "";
+      position: absolute;
+      top: 0.3em;
+      left: 0px;
+      width: 100%;
+      border-top: 0.2em solid rgba(0,0,0,0.5);
+  }
+  #menu-button {
+    z-index:10;
+  }
+  #menu {
+    width:300px;
+    padding:30px;
+    padding-top:80px;
+    margin-left:-380px;
+    height:90%;
+    font-size:1.3em;
+    line-height:2;
+    position:fixed;
+    overflow:hidden;
+    transition: margin-left .5s;
+    white-space:nowrap;
+    background-color: rgba(255,255,255,0.8);
+  }
+  #menu div {
+    width:300px;
+  }
+  #menu.open {
+    margin-left:-20px;
+    transition: margin-left .5s;
+  }
+  #menu input {
+    float:right;
+    margin-top:1em;
+    margin-left:1em;
+  }
+  </style>
 </head>
 <body>
-  <div id='menubar'></div>
+  <span id='menu-button' class="hamburger" onclick='toggleMenu()'></span>
+  <div id='menu'>
+    <div>Night mode <input type='checkbox' value='false' onclick='toggleNight()'></div>
+    <div>Font size <input type='button' id='larger' value='+' onclick='increaseFont()'><input type='button' id='smaller' value='-' onclick='decreaseFont()'/></div>
+  </div>
   <div id='song'>
-    <div id='title'></div>
+    <H1 id='title'></h1>
     <div id='lyrics'></div>
-    <div id='author'></div>
+    <h5 id='author'></h5>
   </div>
   <script type="text/javascript">
-    songs=[{
+    var fontSize=1;
+    var songs=[{
       title: "Angels We Have Heard on High",
-      lyrics: "<verse>Angels we have heard on high/nSweetly singing o’er the plains,\nAnd the mountains in reply\nEchoing their joyous strains.\n</verse><chorus>Gloria, in excelsis Deo!\nGloria, in excelsis Deo!</chorus>\nShepherds, why this jubilee?\nWhy your joyous strains prolong?\nWhat the gladsome tidings be\nWhich inspire your heav’nly song?</verse><verse>Come to Bethlehem and see\nHim Whose birth the angels sing;/nCome, adore on bended knee,/nChrist the Lord, the newborn King.</verse><verse>See Him in a manger laid,\nWhom the choirs of angels praise;\nMary, Joseph, lend your aid,\nWhile our hearts in love we raise.</verse>",
+      lyrics: "<verse>Angels we have heard on high\nSweetly singing o’er the plains,\nAnd the mountains in reply\nEchoing their joyous strains.</verse><chorus>Gloria, in excelsis Deo!\nGloria, in excelsis Deo!</chorus><verse>Shepherds, why this jubilee?\nWhy your joyous strains prolong?\nWhat the gladsome tidings be\nWhich inspire your heav’nly song?</verse><verse>Come to Bethlehem and see\nHim Whose birth the angels sing;\nCome, adore on bended knee,\nChrist the Lord, the newborn King.</verse><verse>See Him in a manger laid,\nWhom the choirs of angels praise;\nMary, Joseph, lend your aid,\nWhile our hearts in love we raise.</verse>",
       author: "unknown"
     },
     {
@@ -22,11 +76,63 @@
     }];
     function load(id) {
       var song = songs[id];
+      var lyrics = song.lyrics.split('<verse>').join('<verse><p>')
+                        .split('</verse>').join('</p></verse>')
+                        .split('<chorus>').join("<chorus><p><span class='hint'>Chorus:</span><br/>")
+                        .split('</chorus>').join('</p></chorus>')
+                        .split('\n').join('<br/>');
       document.getElementById('title').innerHTML = song.title;
-      document.getElementById('lyrics').innerHTML = '<p>'+song.lyrics.split('\n').join('</p><p>')+'</p>';
+      document.getElementById('lyrics').innerHTML = lyrics;
       document.getElementById('author').innerHTML = song.author;
     }
 
+    var swipe;
+    document.body.addEventListener('touchstart', function(event) {
+      swipe=event.targetTouches[0].pageX;
+      if (swipe>10) { swipe=-1; }
+    })
+    document.body.addEventListener('touchmove', function(event) {
+      if (swipe>=0) {
+        console.log(event.targetTouches[0].pageX, swipe);
+      }
+    })
+
+    function openMenu() {
+      var menu = document.getElementById('menu');
+      if (! menu.classList.contains('open')) {
+        menu.classList += ' open';
+      }
+    }
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+      } else {
+        menu.classList += ' open';
+      }
+    }
+    function toggleNight() {
+      var el = document.getElementById('song');
+      if (el.classList.contains('night')) {
+        el.classList.remove('night');
+      } else {
+        el.classList += ' night';
+      }
+    }
+    function increaseFont() {
+      fontSize += .2;
+      var elements = document.getElementsByTagName('p');
+      for (var i=0; i< elements.length; i++) {
+        elements[i].style.fontSize=fontSize+'em';
+      }
+    }
+    function decreaseFont() {
+      fontSize -= .2;
+      var elements = document.getElementsByTagName('p');
+      for (var i=0; i< elements.length; i++) {
+        elements[i].style.fontSize=fontSize+'em';
+      }
+    }
     if (Math.random() < 0.5) { document.body.className+="alt"; }
     load(0);
   </script>
