@@ -3,39 +3,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <style>body{background-color:#c50000;font-family:sans-serif}body.alt{background-color:#00A000}#song{color:black;background-color:#EEEEEE;border-radius:20px;min-height:100%;padding:20px;-webkit-box-shadow:4px 4px 8px;-moz-box-shadow:0 1px 4px rgba(0,0,0,.3); box-shadow:4px 8px 8px rgba(0,0,0,.3)}#song.night{color:#CCCCCC;background-color:black}#song #title{font-size:largest;text-align:center}#song #lyrics{display:table;margin-left:auto;margin-right:auto}#song #author{font-weight:100;color:grey;text-align:right;font-style:italic;padding-right:30px}#song chorus{font-style:italic}p{font-size:1em}.hint{color:grey;font-style:italic;margin-left:-20px;}
-    .hamburger {
-      position: relative;
-      display: inline-block;
-      width: 1.25em;
-      height: 0.8em;
-      margin-right: 0.3em;
-      border-top: 0.2em solid rgba(0,0,0,0.5);
-      border-bottom: 0.2em solid rgba(0,0,0,0.5);
+    .hamburger {position: relative;display: inline-block;width: 1.25em;height: 0.8em;margin-right: 0.3em;border-top: 0.2em solid rgba(0,0,0,0.5);border-bottom: 0.2em solid rgba(0,0,0,0.5);}.hamburger:before {content: "";position: absolute;top: 0.3em;left: 0px;width: 100%;border-top: 0.2em solid rgba(0,0,0,0.5);}
+    #menu-button {z-index:10;}#menu {width:300px;padding:30px;padding-top:80px;margin-left:-380px;height:78%;font-size:1.3em;line-height:2;position:fixed;overflow:hidden;transition: margin-left .5s;white-space:nowrap;background-color: rgba(255,255,255,0.8);box-shadow:4px 4px 10px rgba(128,128,128,0.5);}
+  #menu #songlist {
+    margin-left:-20px;
+    list-style:none;
   }
-  .hamburger:before {
-      content: "";
-      position: absolute;
-      top: 0.3em;
-      left: 0px;
-      width: 100%;
-      border-top: 0.2em solid rgba(0,0,0,0.5);
-  }
-  #menu-button {
-    z-index:10;
-  }
-  #menu {
-    width:300px;
-    padding:30px;
-    padding-top:80px;
-    margin-left:-380px;
-    height:78%;
-    font-size:1.3em;
-    line-height:2;
-    position:fixed;
-    overflow:hidden;
-    transition: margin-left .5s;
-    white-space:nowrap;
-    background-color: rgba(255,255,255,0.8);
+  #menu .song {
+    color:darkred;
+    cursor:pointer;
   }
   #menu div {
     width:300px;
@@ -54,6 +30,11 @@
 <body>
   <span id='menu-button' class="hamburger" onclick='toggleMenu()'></span>
   <div id='menu'>
+    <h3>Songs</h3>
+    <ul id='songlist'>
+    </ul>
+    <hr/>
+    <h3>Settings</h2>
     <div>Night mode <input type='checkbox' value='false' onclick='toggleNight()'></div>
     <div>Font size <input type='button' id='larger' value='+' onclick='increaseFont()'><input type='button' id='smaller' value='-' onclick='decreaseFont()'/></div>
   </div>
@@ -70,11 +51,31 @@
       author: "unknown"
     },
     {
+      title:"We Wish You a Merry Christmas",
+      lyrics:"<verse>We wish you a Merry Christmas\nWe wish you a Merry Christmas\nWe wish you a Merry Christmas and a Happy New Year!</verse><chorus>Good tidings we bring to you and your kin\nGood tidings for Christmas and a Happy New Year.</chorus><verse>So, bring us some figgy pudding\nSo, bring us some figgy puddingSo, bring us some figgy pudding, and a cup of good cheer</verse><verse>We won't go until we get some\nWe won't go until we get someWe won't go until we get some, so bring some out here</verse><verse>We wish you a Merry Christmas\nWe wish you a Merry Christmas\nWe wish you a Merry Christmas and a Happy New Year.</verse>",
+      author:"unknown"
+    },
+    {
       title:"",
       lyrics:"",
       author:""
     }];
+    var sortedSongs = songs.sort(function(a, b) {
+      var x=a.title.toLowerCase();
+      var y=b.title.toLowerCase();
+      return x<y?-1:x>y?1:0;
+    })
+
+    function init() {
+      var songlist = document.getElementById('songlist');
+      songlist.innerHTML="";
+      for (var i=0; i<songs.length; i++) {
+        var song = sortedSongs[i];
+        songlist.innerHTML+="<li class='song' onClick='load("+i+");'>"+song.title.substr(0,25)+"</li>";
+      }
+    }
     function load(id) {
+      closeMenu();
       var song = songs[id];
       var lyrics = song.lyrics.split('<verse>').join('<verse><p>')
                         .split('</verse>').join('</p></verse>')
@@ -144,7 +145,8 @@
       }
     }
     if (Math.random() < 0.5) { document.body.className+="alt"; }
-    load(0);
+    init();
+    openMenu();
   </script>
 </body>
 </html>
