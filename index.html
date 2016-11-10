@@ -46,6 +46,7 @@
   </div>
   <script type="text/javascript">
     var fontSize=1;
+    var nightMode=false;
     var songs=[{
       title: "Angels We Have Heard on High",
       lyrics: "<verse>Angels we have heard on high\nSweetly singing o’er the plains,\nAnd the mountains in reply\nEchoing their joyous strains.</verse><chorus>Gloria, in excelsis Deo!\nGloria, in excelsis Deo!</chorus><verse>Shepherds, why this jubilee?\nWhy your joyous strains prolong?\nWhat the gladsome tidings be\nWhich inspire your heav’nly song?</verse><verse>Come to Bethlehem and see\nHim Whose birth the angels sing;\nCome, adore on bended knee,\nChrist the Lord, the newborn King.</verse><verse>See Him in a manger laid,\nWhom the choirs of angels praise;\nMary, Joseph, lend your aid,\nWhile our hearts in love we raise.</verse>",
@@ -144,13 +145,22 @@
       var y=b.title.toLowerCase();
       return x<y?-1:x>y?1:0;
     })
-
     function init() {
       var songlist = document.getElementById('songlist');
       songlist.innerHTML="";
       for (var i=0; i<songs.length; i++) {
         var song = sortedSongs[i];
         songlist.innerHTML+="<li class='song' onClick='load("+i+");'>"+song.title.substr(0,25)+"</li>";
+      }
+      if (localStorage) {
+        if (localStorage.getItem('fontSize')) {
+          fontSize = localStorage.getItem('fontSize');
+          setFontSize();
+        }
+        if (localStorage.getItem('nightMode')) {
+          nightMode = localStorage.getItem('nightMode');
+          setNightMode();
+        }
       }
     }
     function load(id) {
@@ -165,21 +175,6 @@
       document.getElementById('lyrics').innerHTML = lyrics;
       document.getElementById('author').innerHTML = song.author;
     }
-
-    // var swipe;
-    // document.body.addEventListener('touchstart', function(event) {
-    //   swipe=event.targetTouches[0].pageX;
-    // })
-    // document.body.addEventListener('touchmove', function(event) {
-    //   var menu = document.getElementById('menu');
-    //   menu.style.marginLeft = (-380+event.changedTouches[0].pageX)+'px';
-    // })
-    // document.body.addEventListener('touchend', function(event) {
-    //   var diff = event.changedTouches[0].pageX-swipe;
-    //   document.getElementById('menu').style.marginLeft=null;
-    //   if (diff > 50) openMenu();
-    //   if (diff < -50) closeMenu();
-    // })
 
     function openMenu() {
       var menu = document.getElementById('menu');
@@ -202,22 +197,32 @@
       }
     }
     function toggleNight() {
+      nightMode = !nightMode;
+      if (localStorage) {
+        localStorage.setItem('nightMode', nightMode);
+      }
+      setNightMode();
+    }
+    function setNightMode() {
       var el = document.getElementById('song');
-      if (el.classList.contains('night')) {
-        el.classList.remove('night');
+      if (nightMode) {
+        el.classList += 'night'
       } else {
-        el.classList += ' night';
+        el.classList.remove('night');
       }
     }
     function increaseFont() {
       fontSize += .2;
-      var elements = document.getElementsByTagName('p');
-      for (var i=0; i< elements.length; i++) {
-        elements[i].style.fontSize=fontSize+'em';
+      if (localStorage) {
+        localStorage.setItem('fontSize', fontSize);
       }
+      setFontSize();
     }
     function decreaseFont() {
       fontSize -= .2;
+      setFontSize();
+    }
+    function setFontSize() {
       var elements = document.getElementsByTagName('p');
       for (var i=0; i< elements.length; i++) {
         elements[i].style.fontSize=fontSize+'em';
