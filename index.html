@@ -61,7 +61,7 @@
       author:"Adolphe Adam"
     },{
       title:"Away in a Manger",
-      lyrics:"<verse>Away in a manger no crib for a bed\nThe little Lord Jesus lay down his sweet head\nThe stars in the bright sky looked down where he lay\nThe little Lord Jesus asleep on the hay.</verse><verse>The cattle are lowing the baby awakes\nBut little Lord Jesus, no crying he makes.\nI love you Lord Jesus; look down from the sky\nAnd stay by my cradle 'til morning is nigh.</verse><verse>Be near me Lord Jesus, I ask thee to stay\nClose by me forever, and love me, I pray.\nBless all the dear children in thy tender care,\nAnd fit us for heaven, to live with thee there.</verse>",
+      lyrics:"<verse>Away in a manger no crib for a bed\nThe little Lord Jesus lay down his sweet head\nThe stars in the bright sky look down where he lay\nThe little Lord Jesus asleep on the hay.</verse><verse>The cattle are lowing the baby awakes\nBut little Lord Jesus, no crying he makes.\nI love you Lord Jesus; look down from the sky\nAnd stay by my cradle 'til morning is nigh.</verse><verse>Be near me Lord Jesus, I ask thee to stay\nClose by me forever, and love me, I pray.\nBless all the dear children in thy tender care,\nAnd fit us for heaven, to live with thee there.</verse>",
       author:""
     },{
       title:"The First Noel",
@@ -203,6 +203,7 @@
         localStorage.setItem('nightMode', nightMode);
       }
       setNightMode();
+      closeMenu();
     }
     function setNightMode() {
       var el = document.getElementById('song');
@@ -218,10 +219,15 @@
         localStorage.setItem('fontSize', fontSize);
       }
       setFontSize();
+      closeMenu();
     }
     function decreaseFont() {
       fontSize -= .2;
+      if (localStorage) {
+        localStorage.setItem('fontSize', fontSize);
+      }
       setFontSize();
+      closeMenu();
     }
     function setFontSize() {
       var elements = document.getElementsByTagName('p');
