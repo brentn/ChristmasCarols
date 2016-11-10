@@ -132,7 +132,7 @@
       author:""
     },{
       title:"Winter Wonderland",
-      lyrics:"<verse>Sleigh bells ring\nAre you listening?\nIn the lane\nSnow is glistening\nA beautiful sight\nWe're happy tonight\nWalking in a winter wonderland</verse><verse>Gone away is the bluebird\nHere to stay is a new bird\nHe sings a love song\nAs we go along\nWalking in a winter wonderland</verse><verse>In the meadow we can build a snowman\nThen pretend that he is Parson Brown\nHe'll say: Are you married?\nWe'll say: No man\nBut you can do the job\nWhen you're in town</verse><verse>Later on\nWe'll conspire\nAs we dream by the fire\nTo face unafraid\nThe plans that we've made\nWalking in a winter wonderland</verse><verse>In the meadow we can build a snowman\nAnd pretend that he's a circus clown\nWe'll have lots of fun with mister snowman\nUntil the other kids knock him down</verrse><verse>When it snows\nAin't it thrilling\nThough your nose gets a chilling\nWe'll frolic and play\nThe Eskimo way\nWalking in a winter wonderland</verse>",
+      lyrics:"<verse>Sleigh bells ring\nAre you listening?\nIn the lane\nSnow is glistening\nA beautiful sight\nWe're happy tonight\nWalking in a winter wonderland</verse><verse>Gone away is the bluebird\nHere to stay is a new bird\nHe sings a love song\nAs we go along\nWalking in a winter wonderland</verse><verse>In the meadow we can build a snowman\nThen pretend that he is Parson Brown\nHe'll say: Are you married?\nWe'll say: No man\nBut you can do the job\nWhen you're in town</verse><verse>Later on\nWe'll conspire\nAs we dream by the fire\nTo face unafraid\nThe plans that we've made\nWalking in a winter wonderland</verse><verse>In the meadow we can build a snowman\nAnd pretend that he is Parson Brown\nHe'll say \"Are you married?\" We'll say \"No man,\nbut you can do the job while you're in town!\"</verrse><verse>When it snows\nAin't it thrilling\nThough your nose gets a chilling\nWe'll frolic and play\nThe Eskimo way\nWalking in a winter wonderland</verse>",
       author:""
     },{
       title:"",
@@ -166,20 +166,20 @@
       document.getElementById('author').innerHTML = song.author;
     }
 
-    var swipe;
-    document.body.addEventListener('touchstart', function(event) {
-      swipe=event.targetTouches[0].pageX;
-    })
-    document.body.addEventListener('touchmove', function(event) {
-      var menu = document.getElementById('menu');
-      menu.style.marginLeft = (-380+event.changedTouches[0].pageX)+'px';
-    })
-    document.body.addEventListener('touchend', function(event) {
-      var diff = event.changedTouches[0].pageX-swipe;
-      document.getElementById('menu').style.marginLeft=null;
-      if (diff > 50) openMenu();
-      if (diff < -50) closeMenu();
-    })
+    // var swipe;
+    // document.body.addEventListener('touchstart', function(event) {
+    //   swipe=event.targetTouches[0].pageX;
+    // })
+    // document.body.addEventListener('touchmove', function(event) {
+    //   var menu = document.getElementById('menu');
+    //   menu.style.marginLeft = (-380+event.changedTouches[0].pageX)+'px';
+    // })
+    // document.body.addEventListener('touchend', function(event) {
+    //   var diff = event.changedTouches[0].pageX-swipe;
+    //   document.getElementById('menu').style.marginLeft=null;
+    //   if (diff > 50) openMenu();
+    //   if (diff < -50) closeMenu();
+    // })
 
     function openMenu() {
       var menu = document.getElementById('menu');
