@@ -41,7 +41,7 @@
     </ul>
     <hr/>
     <h3>Settings</h2>
-    <div>Night mode <input type='checkbox' value='false' onclick='toggleNight()'></div>
+    <div>Night mode <input id='nightmode' type='checkbox' value='false' onclick='toggleNight()'></div>
     <div>Font size <input type='button' id='larger' value='+' onclick='increaseFont()'><input type='button' id='smaller' value='-' onclick='decreaseFont()'/></div>
   </div>
   <div id='song'>
@@ -212,6 +212,7 @@
     }
     function setNightMode() {
       var el = document.getElementById('song');
+      $('#nightmode').prop('checked', nightMode);
       if (nightMode) {
         el.classList += 'night'
       } else {
@@ -242,6 +243,7 @@
     }
     if (Math.random() < 0.5) { document.body.className+="alt"; }
     init();
+    load(0);
     openMenu();
   </script>
 </body>
