@@ -1,7 +1,8 @@
 CACHE MANIFEST
 
-# Version: 0.001
+# Version: 0.002
 
 CACHE:
 index.html
+icon.png
 favicon.png
