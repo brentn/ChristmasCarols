@@ -212,7 +212,7 @@
     }
     function setNightMode() {
       var el = document.getElementById('song');
-      $('#nightmode').prop('checked', nightMode);
+      document.getElementById('nightmode').checked = nightMode;
       if (nightMode) {
         el.classList += 'night'
       } else {
