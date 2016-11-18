@@ -71,24 +71,24 @@
   }
   function openMenu() {
     var menu = document.getElementById('menu');
-    if (! menu.classList.contains('open')) {
-      menu.classList += ' open';
+    if (! menu.className.contains('open')) {
+      menu.className += ' open';
     }
-    document.getElementById('log').innerHTML="open"+menu.classList;
+    document.getElementById('log').innerHTML="open"+menu.className;
   }
   function closeMenu() {
     var menu = document.getElementById('menu');
-    if (menu.classList.contains('open')) {
-      menu.classList.remove('open');
+    if (menu.className.contains('open')) {
+      menu.className.remove('open');
     }
   }
   function setNightMode() {
     var el = document.getElementById('song');
     document.getElementById('nightmode').checked = nightMode;
     if (nightMode) {
-      el.classList += 'night'
+      el.className += ' night'
     } else {
-      el.classList.remove('night');
+      el.className.remove('night');
     }
   }
   function setFontSize() {
@@ -111,8 +111,7 @@
   }
   var toggleMenu = function() {
     var menu = document.getElementById('menu');
-    document.getElementById('log').innerHTML="toggle"+menu.classList;
-    if (menu.classList.contains('open')) {
+    if (menu.className.contains('open')) {
       closeMenu();
     } else {
       openMenu();
