@@ -88,7 +88,7 @@
     if (nightMode) {
       el.className += ' night'
     } else {
-      el.className = el.className.replace('night','');
+      el.className = el.className.replace('night',''\);
     }
   }
   function setFontSize() {
