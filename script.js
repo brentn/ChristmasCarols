@@ -71,14 +71,14 @@
   }
   function openMenu() {
     var menu = document.getElementById('menu');
-    if (! menu.className.contains('open')) {
+    if (! menu.className.indexOf('open')>-1) {
       menu.className += ' open';
     }
     document.getElementById('log').innerHTML="open"+menu.className;
   }
   function closeMenu() {
     var menu = document.getElementById('menu');
-    if (menu.className.contains('open')) {
+    if (menu.className.indexOf('open')>-1) {
       menu.className.remove('open');
     }
   }
@@ -111,7 +111,7 @@
   }
   var toggleMenu = function() {
     var menu = document.getElementById('menu');
-    if (menu.className.contains('open')) {
+    if (menu.className.indexOf('open')>-1) {
       closeMenu();
     } else {
       openMenu();
