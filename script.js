@@ -6,14 +6,20 @@
   var songs;
 
   function load(key, defaultValue) {
-    if (localStorage) {
-      if (localStorage[key]) {return localStorage[key];}
-    }
+    try {
+      if (localStorage!==undefined) {
+        if (localStorage[key]) {return localStorage[key];}
+      }
+    }  catch(ex) {}
     return defaultValue;
   }
   function save(key, value) {
-    if (localStorage) {
-      localStorage[key] = value;
+    try {
+      if (localStorage!==undefined) {
+        localStorage[key] = value;
+      }
+    } catch(ex) {
+      return;
     }
   }
   function openMenu() {
@@ -21,7 +27,6 @@
     if (! menu.className.indexOf('open')>-1) {
       menu.className += ' open';
     }
-    document.getElementById('log').innerHTML="open"+menu.className;
   }
   function closeMenu() {
     var menu = document.getElementById('menu');
@@ -68,19 +73,18 @@
   };
   var toggleNight = function() {
     nightMode = !nightMode;
-    save('nightMode', nightMode);
     setNightMode();
     closeMenu();
+    save('nightMode', nightMode);
   };
   var increaseFont = function() {
     fontSize += 0.2;
-    save('fontSize', fontSize);
     setFontSize();
     closeMenu();
+    save('fontSize', fontSize);
   };
   var decreaseFont = function() {
     fontSize -= 0.2;
-    save('fontSize', fontSize);
     setFontSize();
     closeMenu();
   };
