@@ -79,7 +79,7 @@
   function closeMenu() {
     var menu = document.getElementById('menu');
     if (menu.className.indexOf('open')>-1) {
-      menu.className.remove('open');
+      menu.className = menu.className.replace('open','');
     }
   }
   function setNightMode() {
@@ -88,7 +88,7 @@
     if (nightMode) {
       el.className += ' night'
     } else {
-      el.className.remove('night');
+      el.className = el.className.replace('night','');
     }
   }
   function setFontSize() {
