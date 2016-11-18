@@ -74,7 +74,7 @@
     if (! menu.classList.contains('open')) {
       menu.classList += ' open';
     }
-    document.getElementById('log').innerHTML="log"+menu;
+    document.getElementById('log').innerHTML="open"+menu.classList;
   }
   function closeMenu() {
     var menu = document.getElementById('menu');
@@ -111,6 +111,7 @@
   }
   var toggleMenu = function() {
     var menu = document.getElementById('menu');
+    document.getElementById('log').innerHTML="toggle"+menu.classList;
     if (menu.classList.contains('open')) {
       closeMenu();
     } else {
