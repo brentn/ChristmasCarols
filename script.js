@@ -31,7 +31,12 @@
     var songlist = document.getElementById("songlist");
     songlist.innerHTML="";
     for (var i = 0; i < songs.length; i++) {
-      songlist.innerHTML+="<li class='song' onClick='showSong("+i+");'>"+song.title.substr(0,25)+"</li>";
+      var song = songs[i];
+      var menuItem=document.createElement("li");
+      menuItem.appendChild(document.createTextNode(song.title.substr(0,25)));
+      menuItem.id=i;
+      menuItem.addEventListener("click", showSong);
+      songlist.appendChild(menuItem);
     };
   }
   function setupClickListeners() {
@@ -64,19 +69,6 @@
     httpRequest.open('GET', path);
     httpRequest.send();
   }
-
-  function showSong(id) {
-    closeMenu();
-    var song = songs[id];
-    var lyrics = song.lyrics.split('<verse>').join('<verse><p>')
-                      .split('</verse>').join('</p></verse>')
-                      .split('<chorus>').join("<chorus><p><span class='hint'>Chorus:</span><br/>")
-                      .split('</chorus>').join('</p></chorus>')
-                      .split('\n').join('<br/>');
-    document.getElementById('title').innerHTML = song.title;
-    document.getElementById('lyrics').innerHTML = lyrics;
-    document.getElementById('author').innerHTML = song.author;
-  }
   function openMenu() {
     var menu = document.getElementById('menu');
     if (! menu.classList.contains('open')) {
@@ -103,6 +95,19 @@
     lyrics.style.fontSize=fontSize+"em";
   }
 
+  var showSong = function(evt) {
+    var id = (evt && evt.target)?evt.target.id:0;
+    var song = songs[id];
+    var lyrics = song.lyrics.split('<verse>').join('<verse><p>')
+                      .split('</verse>').join('</p></verse>')
+                      .split('<chorus>').join("<chorus><p><span class='hint'>Chorus:</span><br/>")
+                      .split('</chorus>').join('</p></chorus>')
+                      .split('\n').join('<br/>');
+    document.getElementById('title').innerHTML = song.title;
+    document.getElementById('lyrics').innerHTML = lyrics;
+    document.getElementById('author').innerHTML = song.author;
+    closeMenu();
+  }
   var toggleMenu = function() {
     var menu = document.getElementById('menu');
     if (menu.classList.contains('open')) {
