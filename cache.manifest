@@ -1,8 +1,11 @@
 CACHE MANIFEST
 
-# Version: 0.005
+# Version: 0.006
 
 CACHE:
 index.html
+songs.json
+style.css
+script.js
 icon.png
 favicon.png
