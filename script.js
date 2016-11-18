@@ -143,28 +143,3 @@
 
   init();
 })();
-
-
-
-//
-//
-//   var menuButton = document.getElementById('menu-button');
-//   if (is_touch_device) {
-//     menuButton.addEventListener('touchstart', toggleMenu, false);
-//     document.getElementById('log').innerHTML='touch';
-//   } else {
-//     menuButton.addEventListener('click', toggleMenu, false);
-//     document.getElementById('log').innerHTML='click';
-//   }
-//
-//
-//
-//
-// function is_touch_device() {
-//   try {
-//     document.createEvent("TouchEvent");
-//     return true;
-//   } catch (e) {
-//     return false;
-//   }
-// }
