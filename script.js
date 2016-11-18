@@ -74,6 +74,7 @@
     if (! menu.classList.contains('open')) {
       menu.classList += ' open';
     }
+    document.getElementById('log').innerHTML=menu.classList.length;
   }
   function closeMenu() {
     var menu = document.getElementById('menu');
