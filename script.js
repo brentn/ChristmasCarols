@@ -8,17 +8,30 @@
   function load(key, defaultValue) {
     try {
       if (localStorage!==undefined) {
-        if (localStorage[key]) {return localStorage[key];}
+        if (localStorage[key]) {
+          console.debug("setting "+key+" to: "+localStorage[key]);
+          return localStorage[key];
+        } else {
+          console.debug(localStorage[key]+" not found");
+        }
+      } else {
+        console.debug("no localStorage");
       }
-    }  catch(ex) {}
+    }  catch(ex) {
+      console.debug('error loading: '+ex);
+    }
     return defaultValue;
   }
   function save(key, value) {
     try {
       if (localStorage!==undefined) {
+        console.debug('saving '+key+" = "+value);
         localStorage[key] = value;
+      } else {
+        console.debug("No localStorage");
       }
     } catch(ex) {
+      console.debug('error saving: '+ex)
       return;
     }
   }
@@ -87,6 +100,7 @@
     fontSize -= 0.2;
     setFontSize();
     closeMenu();
+    save('fontSize', fontSize);
   };
   function populateMenu() {
     var songlist = document.getElementById("songlist");
@@ -122,8 +136,8 @@
 
   function init() {
     setBackgroundColour();
-    fontSize=load("fontSize", 1);
-    nightMode=load("nightMode", false);
+    fontSize=Number(load("fontSize", 1));
+    nightMode=(load("nightMode", 'false')==='true');
     setFontSize();
     setNightMode();
     fetchJSONFile("./songs.json", function(response) {
